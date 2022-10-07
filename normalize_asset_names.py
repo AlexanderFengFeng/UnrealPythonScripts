@@ -2,8 +2,9 @@ import unreal
 
 
 ASSET_CLASS_PREFIXES = {
-    'StaticMesh': 'SM',
-    'Material': 'M',
+    'StaticMesh': 'SM_',
+    'Material': 'M_',
+    'Animation Sequence': '',
 }
 
 
@@ -18,14 +19,14 @@ def normalize_asset_names(asset_directory: str, recursive: bool = False) -> None
         asset_class = str(asset_data.asset_class)
         asset_name = str(asset_data.asset_name)
         prefix = ASSET_CLASS_PREFIXES[asset_class]
-        if asset_name.startswith(prefix + '_'):
+        if asset_name.startswith(prefix):
             unreal.log(f'{asset_name} already normalized')
             continue
 
         if asset_class not in ASSET_CLASS_PREFIXES:
             unreal.log(f'{asset_class} not accounted for. Add it to the dictionary')
         else:
-            new_asset_name = ASSET_CLASS_PREFIXES[asset_class] + '_' + _format_to_camelcase(asset_name)
+            new_asset_name = ASSET_CLASS_PREFIXES[asset_class] + _format_to_camelcase(asset_name)
             replaced_name = string_lib.replace(full_asset_name, asset_name, new_asset_name)
             editor_asset_lib.rename_asset(full_asset_name, replaced_name)
             replaced += 1
