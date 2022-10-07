@@ -4,7 +4,7 @@ import unreal
 ASSET_CLASS_PREFIXES = {
     'StaticMesh': 'SM_',
     'Material': 'M_',
-    'Animation Sequence': '',
+    'Animation Sequence': 'AS_',
 }
 
 
